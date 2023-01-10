@@ -66,7 +66,7 @@
                 labelContainer.childNodes[i].innerHTML = classPrediction;
                 }
             cnt++;
-            if(cnt>10000){
+            if(cnt>10){
                 if(prediction[0].probability.toFixed(2) > 0.80){ //アルミ缶の上にあるみかん
                     if(status == "AlonMi"){
                         var audio = new Audio('sa.mp3');
