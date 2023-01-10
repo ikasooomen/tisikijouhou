@@ -59,25 +59,26 @@
     // run the webcam image through the image model
     async function predict() {
             // predict can take in an image, video or canvas html element
-        const prediction = await model.predict(webcam.canvas);
-        const test = () => {
+            const prediction = await model.predict(webcam.canvas);
                 for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
                 labelContainer.childNodes[i].innerHTML = classPrediction;
-            }
-            if(prediction[0].probability.toFixed(2) > 0.70){ //アルミ缶の上にあるみかん
-                if(status == "AlonMi"){
-                    var audio = new Audio('sa.mp3');
-                    audio.play();
                 }
-                status = "AlonMi";
+            cnt++;
+            if(cnt>10000){
+                if(prediction[0].probability.toFixed(2) > 0.80){ //アルミ缶の上にあるみかん
+                    if(status == "AlonMi"){
+                        var audio = new Audio('sa.mp3');
+                        audio.play();
+                    }
+                    status = "AlonMi";
+                }
+                else if(prediction[1].probability.toFixed(2) > 0.80){ //アルミ缶の上にないみかん
+                    status = "AlnoMi";
+                }
+                cnt=0;
             }
-            else if(prediction[1].probability.toFixed(2) > 0.70){ //アルミ缶の上にないみかん
-                status = "AlnoMi";
-            }
-        }
-        setInterval(test,1000);
     }
     </script>
 
