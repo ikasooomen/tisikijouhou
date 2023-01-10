@@ -66,11 +66,12 @@
                 labelContainer.childNodes[i].innerHTML = classPrediction;
                 }
             cnt++;
-            if(cnt>10){
+            if(cnt>50){
                 if(prediction[0].probability.toFixed(2) > 0.80){ //アルミ缶の上にあるみかん
                     if(status == "AlonMi"){
                         var audio = new Audio('sa.mp3');
                         audio.play();
+                        while(cnt>500) cnt++;
                     }
                     status = "AlonMi";
                 }
